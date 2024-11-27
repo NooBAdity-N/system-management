@@ -7,6 +7,31 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 class BillingSystem:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Billing System")
+        self.root.geometry("800x700")
+
+        self.billNumber = tk.StringVar(value=f"BN-{random.randint(1000,10000)}")
+        self.date = tk.StringVar(value=datetime.now().strftime('%d-%m-%Y'))
+        self.time = tk.StringVar(value=datetime.now().strftime('%H:%M'))
+        self.selectedItem = tk.StringVar()
+        self.quantity = tk.IntVar(value=1)
+        self.price = tk.DoubleVar(value=0.0)
+        self.totalBill = tk.DoubleVar(value=0.0)
+        self.paymentType = tk.StringVar()
+
+        self.orderItem = []
+
+        self.menu = {
+            "Water bottle": 20, "Chai": 20, "Coffee": 25,
+            "Roti": 20, "Chapati": 10, "Nan": 30, "Butter Nan": 35,
+            "Panner Masala": 150, "Paalak Paneer": 160, "Maharaja Paneer": 200,
+            "Fish Masala": 210, "Chicken Handi": 300, "Butter Chicken": 350
+        }
+
+        self.createWidget()
+        self.createDatabase()
 
     def createDatabase(self):
         """ Create SQLite database for storing orders """
